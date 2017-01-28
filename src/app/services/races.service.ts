@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import {Http} from "@angular/http";
+
+@Injectable()
+export class RacesService {
+
+  constructor(private http: Http) {}
+
+  getRaceSummary() {
+    return this.http.get('/api/raceSummary').map(res => res.json());
+  }
+
+}

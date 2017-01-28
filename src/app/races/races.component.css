@@ -1,0 +1,13 @@
+.races-table {
+  border: 1px solid #ccc;
+  min-height: 24px;
+  box-shadow: 5px 5px 5px #ddd;
+}
+
+.races-table td {
+  padding: 5px;
+}
+
+.races-card {
+  min-height: 300px;
+}

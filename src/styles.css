@@ -1,0 +1,11 @@
+body {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background: url(./assets/checkers.png) repeat;
+}
+
+/* bootstrap overrides */
+.card {
+  border-radius: 0;
+  box-shadow: 5px 5px 5px #ddd;
+}
