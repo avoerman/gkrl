@@ -2,7 +2,8 @@ const express = require('express'),
   path = require('path'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  races = require('./routes/races');
+  races = require('./routes/races'),
+  leaderboard = require('./routes/leaderboard');
 
 const app = express();
 app.set('port', (process.env.PORT || 3000));
@@ -26,6 +27,7 @@ db.once('open', function () {
 
   //API
   app.get('/api/racesummary', races.getRaceSummary);
+  app.get('/api/leaderboardsummary', leaderboard.getLeaderBoardSummary);
 
 
   // all other routes are handled by Angular

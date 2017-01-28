@@ -1,0 +1,32 @@
+<div class="card" *ngIf="isLoading">
+  <h4 class="card-header">Loading...</h4>
+  <div class="card-block text-xs-center">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+  </div>
+</div>
+
+<div class="card leaderboard-card">
+  <h4 class="card-header">LEADERBOARD</h4>
+  <div class="card-block">
+    <table class="leaderboard-table col-lg-12 generic-data-table">
+      <thead>
+      <tr>
+        <th>Driver</th>
+        <th>Top Time</th>
+        <th>Top Time Rank</th>
+        <th>Best Five Rank</th>
+        <th>Best Three Rank</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rec of leaderboardSummary">
+        <td>{{rec.driver}}</td>
+        <td>{{rec.bestTime}}</td>
+        <td>{{rec.bestTimeRank}}</td>
+        <td>{{rec.fastFiveRank}}</td>
+        <td>{{rec.fastThreeRank}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

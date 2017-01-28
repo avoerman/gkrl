@@ -8,12 +8,15 @@ import {AppComponent} from './app.component';
 import {DataService} from './services/data.service';
 
 import {ToastComponent} from './shared/toast/toast.component';
-import { RacesComponent } from './races/races.component';
+import {RacesComponent} from './races/races.component';
 import {RacesService} from "./services/races.service";
-import { NavigationComponent } from './navigation/navigation.component';
+import {NavigationComponent} from './navigation/navigation.component';
+import {LeaderboardComponent} from './leaderboard/leaderboard.component';
+import {LeaderboardService} from "./services/leaderboard.service";
 
 const routing = RouterModule.forRoot([
-  {path: '', component: RacesComponent},
+  {path: '', component: LeaderboardComponent},
+  {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'races', component: RacesComponent}
 
 ]);
@@ -23,7 +26,8 @@ const routing = RouterModule.forRoot([
     AppComponent,
     ToastComponent,
     RacesComponent,
-    NavigationComponent
+    NavigationComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ const routing = RouterModule.forRoot([
   providers: [
     DataService,
     ToastComponent,
-    RacesService
+    RacesService,
+    LeaderboardService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
