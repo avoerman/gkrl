@@ -10,6 +10,7 @@ import {DataService} from './services/data.service';
 import {ToastComponent} from './shared/toast/toast.component';
 import { RacesComponent } from './races/races.component';
 import {RacesService} from "./services/races.service";
+import { NavigationComponent } from './navigation/navigation.component';
 
 const routing = RouterModule.forRoot([
   {path: '', component: RacesComponent},
@@ -21,7 +22,8 @@ const routing = RouterModule.forRoot([
   declarations: [
     AppComponent,
     ToastComponent,
-    RacesComponent
+    RacesComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
