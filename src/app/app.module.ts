@@ -5,8 +5,6 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
-import {DataService} from './services/data.service';
-
 import {ToastComponent} from './shared/toast/toast.component';
 import {RacesComponent} from './races/races.component';
 import {RacesService} from "./services/races.service";
@@ -37,7 +35,6 @@ const routing = RouterModule.forRoot([
     routing
   ],
   providers: [
-    DataService,
     ToastComponent,
     RacesService,
     LeaderboardService
