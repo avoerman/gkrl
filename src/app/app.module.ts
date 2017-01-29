@@ -11,6 +11,7 @@ import {RacesService} from "./services/races.service";
 import {NavigationComponent} from './navigation/navigation.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {LeaderboardService} from "./services/leaderboard.service";
+import 'rxjs/Rx';
 
 const routing = RouterModule.forRoot([
   {path: '', component: LeaderboardComponent},
