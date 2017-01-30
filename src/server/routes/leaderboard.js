@@ -1,24 +1,87 @@
+const models = require('../models/race.model.js');
+
+const getUniqueDriverIdsFromSplits = (splits) => {
+    return splits.map(item => item.driverName)
+        .filter((value, index, self) => self.indexOf(value) === index);
+};
+
+const getSplitsFromDriverSorted = (splits, driverName) => {
+    return splits.filter((obj) => {
+        return obj.driverName === driverName;
+    }).sort((a, b) => {
+        return a.time - b.time;
+    });
+};
+
+const sortDescFromMap = (map) => {
+    return Array.from(map).sort(function (a, b) {
+        return a - b;
+    });
+};
+
+const getTimesRank = (bestTimes, rec, prop) => {
+    const bestTimesMap = new Set(Object.keys(bestTimes).map(function (key) {
+        return bestTimes[key][prop];
+    }));
+
+    const bestTimesMapSorted = sortDescFromMap(bestTimesMap);
+
+    return bestTimesMapSorted.indexOf(rec[prop]) + 1;
+};
+
+const getLeaderboardRecordsFromSplits = (splits) => {
+    const uniqueDrivers = getUniqueDriverIdsFromSplits(splits);
+    let bestTimes = [];
+    for (let driver of uniqueDrivers) {
+        const driverSplits = getSplitsFromDriverSorted(splits, driver);
+
+        const bestThree = driverSplits.slice(0, 3).map((key) => {
+            return key.time;
+        });
+        const bestFive = driverSplits.slice(0, 5).map((key) => {
+            return key.time;
+        });
+
+        const bestTimesObj = {
+            driver: driver,
+            bestTime: driverSplits[0] ? driverSplits[0].time : 0,
+            bestFiveTimes: bestFive,
+            avgFive: bestFive.reduce((a, b) => a + b) / bestFive.length,
+            bestThreeTimes: bestThree,
+            avgThree: bestThree.reduce((a, b) => a + b) / bestThree.length,
+        };
+
+        bestTimes.push(bestTimesObj);
+    }
+
+    let leaderboardRecords = [];
+    for (let bestTimeRec of bestTimes) {
+
+        const leaderboardRecord = {
+            driver: bestTimeRec.driver,
+            bestTime: bestTimeRec.bestTime,
+            bestFiveTimes: bestTimeRec.bestFiveTimes,
+            avgFive: bestTimeRec.avgFive,
+            bestThreeTimes: bestTimeRec.bestThreeTimes,
+            avgThree: bestTimeRec.avgThree,
+            bestTimeRank: getTimesRank(bestTimes, bestTimeRec, 'bestTime'),
+            fastFiveRank: getTimesRank(bestTimes, bestTimeRec, 'avgFive'),
+            fastThreeRank: getTimesRank(bestTimes, bestTimeRec, 'avgThree')
+        };
+        leaderboardRecords.push(leaderboardRecord);
+    }
+    return leaderboardRecords.sort((a, b) => {
+        return a.bestTime - b.bestTime;
+    });
+};
+
 exports.getLeaderBoardSummary = function (req, res) {
-  res.json([{
-      "driver": "Alex Voerman",
-      "bestTime": 41.465,
-      "bestTimeRank": 1,
-      "bestFiveTimes": [41.465, 42.456, 42.567, 42.765, 44.546],
-      "avgFive": 42.876,
-      "fastFiveRank": 2,
-      "bestThreeTimes": [41.465, 42.456, 42.567],
-      "avgThree": 41.414,
-      "fastThreeRank": 2
-    }, {
-      "driver": "Brett Linn",
-      "bestTime": 42.424,
-      "bestTimeRank": 2,
-      "bestFiveTimes": [42.145, 42.166, 42.666, 42.765, 43.544],
-      "avgFive": 42.656,
-      "fastFiveRank": 1,
-      "bestThreeTimes": [42.145, 42.166, 42.666],
-      "fastThreeRank": 1,
-      "avgThree": 42.456
-    }]
-  )
+    models.Split
+        .find()
+        .populate('raceNumber')
+        .exec(function (err, splits) {
+            if (err) return console.log(err);
+            res.json(getLeaderboardRecordsFromSplits(splits));
+        });
+
 };

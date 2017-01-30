@@ -23,6 +23,38 @@ const getSplitsSansNames = (sortedSplits, names) => {
     };
 };
 
+const getRaceSummaryFromSplits = (splits) => {
+    const uniqueRaces = getUniqueRaceIdsFromSplits(splits);
+
+    let raceSummaryObj = [];
+    for (let raceId of uniqueRaces) {
+
+        //This could probably be done in one function, if I was smarter.
+        const thisRaceSplitsSorted = getThisRaceSplitsSorted(splits, raceId);
+
+        const goldTime = thisRaceSplitsSorted[0].time;
+        const goldName = thisRaceSplitsSorted[0].driverName;
+
+        const silverSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName]);
+        const bronzeSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName, silverSplits.name]);
+
+        const summaryObj = {
+            raceNumber: raceId,
+            date: thisRaceSplitsSorted[0].raceNumber.date,// this should be safe,
+            goldTime: goldTime,
+            goldName: goldName,
+            silverTime: silverSplits.time,
+            silverName: silverSplits.name,
+            bronzeTime: bronzeSplits.time,
+            bronzeName: bronzeSplits.name
+        };
+
+        raceSummaryObj.push(summaryObj);
+    }
+    return raceSummaryObj;
+};
+
+
 exports.getRaceSummary = function (req, res) {
 
     models.Split
@@ -31,34 +63,6 @@ exports.getRaceSummary = function (req, res) {
         .exec(function (err, splits) {
             if (err) return console.log(err);
 
-            const uniqueRaces = getUniqueRaceIdsFromSplits(splits);
-
-            let raceSummaryObj = [];
-            for (let raceId of uniqueRaces) {
-
-                //This could probably be done in one function, if I was smarter.
-                const thisRaceSplitsSorted = getThisRaceSplitsSorted(splits, raceId);
-
-                const goldTime = thisRaceSplitsSorted[0].time;
-                const goldName = thisRaceSplitsSorted[0].driverName;
-
-                const silverSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName]);
-                const bronzeSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName, silverSplits.name]);
-
-                const summaryObj = {
-                    raceNumber: raceId,
-                    date: thisRaceSplitsSorted[0].raceNumber.date,// this should be safe,
-                    goldTime: goldTime,
-                    goldName: goldName,
-                    silverTime: silverSplits.time,
-                    silverName: silverSplits.name,
-                    bronzeTime: bronzeSplits.time,
-                    bronzeName: bronzeSplits.name
-                };
-
-                raceSummaryObj.push(summaryObj);
-            }
-
-            res.json(raceSummaryObj);
+            res.json(getRaceSummaryFromSplits(splits));
         });
 };
