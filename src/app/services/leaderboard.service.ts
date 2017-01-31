@@ -8,6 +8,6 @@ export class LeaderboardService {
   }
 
   getLeaderboardSummary() {
-    return this.http.get('/api/leaderboardsummary').map(res => res.json());
+    return this.http.get('/api/leaderboard').map(res => res.json());
   }
 }

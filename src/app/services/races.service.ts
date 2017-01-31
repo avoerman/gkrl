@@ -7,7 +7,7 @@ export class RacesService {
   constructor(private http: Http) {}
 
   getRaceSummary() {
-    return this.http.get('/api/racesummary').map(res => res.json());
+    return this.http.get('/api/races').map(res => res.json());
   }
 
 }
