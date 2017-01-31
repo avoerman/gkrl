@@ -6,7 +6,6 @@ exports.index = function (req, res) {
         .populate('raceNumber')
         .exec(function (err, splits) {
             if (err) return console.log("Error......" +err);
-            console.log(splits);
             res.json(getRaceSummaryFromSplits(splits));
         });
 };
