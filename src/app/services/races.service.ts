@@ -10,4 +10,8 @@ export class RacesService {
     return this.http.get('/api/races').map(res => res.json());
   }
 
+  getRaceDetails(raceNumber) {
+    return this.http.get('/api/race/'+raceNumber).map(res => res.json());
+  }
+
 }

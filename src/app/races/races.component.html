@@ -16,6 +16,7 @@
         <th>Gold</th>
         <th>Silver</th>
         <th>Bronze</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -34,6 +35,7 @@
           <div class="medal-time">{{race.bronzeTime}}</div>
           <div class="medal-name">{{race.bronzeName}}</div>
         </td>
+        <td><a [routerLink]="['/race-details', race.raceNumber]">View</a></td>
       </tr>
       </tbody>
     </table>

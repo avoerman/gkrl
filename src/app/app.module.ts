@@ -12,12 +12,13 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {LeaderboardService} from "./services/leaderboard.service";
 import 'rxjs/Rx';
+import { RacedetailsComponent } from './racedetails/racedetails.component';
 
 const routing = RouterModule.forRoot([
   {path: '', component: LeaderboardComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
-  {path: 'races', component: RacesComponent}
-
+  {path: 'races', component: RacesComponent},
+  {path: 'race-details/:raceNumber', component: RacedetailsComponent}
 ]);
 
 @NgModule({
@@ -26,7 +27,8 @@ const routing = RouterModule.forRoot([
     ToastComponent,
     RacesComponent,
     NavigationComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    RacedetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 var db = require('../../db');
-
+var request = require('request');
 
 exports.index = function (req, res) {
     db.Split.find()
@@ -11,10 +11,58 @@ exports.index = function (req, res) {
 };
 
 
+exports.details = function (req, res) {
+    db.Split.find({
+        "raceNumber" : req.params.racenumber
+    }).sort('lap').exec(function (err, splits) {
+            if (err) return console.log("Error......" +err);
+            res.json(combineRaceStats(splits));
+        });
+};
+
+const combineRaceStats = (splits) => {
+    var orderedStats = {
+        maxLaps: 0,
+        drivers: []
+    };
+    for(var i = 0; i < splits.length; i++){
+        let driverName = splits[i].driverName;
+        if(arrayObjectIndexOf(orderedStats.drivers, driverName, "name") != -1) {
+            //Adding lap entry
+            orderedStats.drivers[arrayObjectIndexOf(orderedStats.drivers, driverName, "name")].laps.push({
+                lapNum: splits[i].lap,
+                time: splits[i].time
+            });             
+            
+            //Updating max lap
+            if(orderedStats.maxLaps < splits[i].lap){            
+                orderedStats.maxLaps = splits[i].lap;
+            }
+
+        } else {
+            orderedStats.drivers.push({ 
+                name: driverName,
+                laps: [{
+                    lapNum: splits[i].lap,
+                    time: splits[i].time
+                }]
+            });
+        }
+    }
+
+    return orderedStats;
+};
+
+
+function arrayObjectIndexOf(myArray, searchTerm, property) {
+    for(var i = 0, len = myArray.length; i < len; i++) {
+        if (myArray[i][property] === searchTerm) return i;
+    }
+    return -1;
+}
 
 
 const getUniqueRaceIdsFromSplits = (splits) => {
-    debugger;
     return splits.map(item => item.raceNumber._id)
         .filter((value, index, self) => self.indexOf(value) === index);
 };
