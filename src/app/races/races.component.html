@@ -35,8 +35,8 @@
                     <div class="medal-time">{{race.bronzeTime}}</div>
                     <div class="medal-name">{{race.bronzeName}}</div>
                 </td>
+                <td><a [routerLink]="['/race-details', race.raceNumber]">View</a></td>
             </tr>
-            <td><a [routerLink]="['/race-details', race.raceNumber]">View</a></td>
             </tbody>
         </table>
         <div *ngIf="authService.loggedIn()" class="actions">
