@@ -2,19 +2,21 @@ const express = require('express'),
     path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
+    cors = require('cors'),
     races = require('./api/races'),
     leaderboard = require('./api/leaderboard');
 
 
 const app = express();
 app.set('port', (process.env.PORT || 3000));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(cors());
 
 app.use('/', express.static(__dirname + '/../../dist'));
 app.use('/api', races);
 app.use('/api', leaderboard);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(morgan('dev'));
 

@@ -1,46 +1,46 @@
-var db = require('../../db');
-var request = require('request');
+const db = require('../../db'),
+    Q = require('q'),
+    request = require('request');
 
-exports.index = function (req, res) {
+exports.get = function (req, res) {
     db.Split.find()
         .populate('raceNumber')
         .exec(function (err, splits) {
-            if (err) return console.log("Error......" +err);
+            if (err) return console.log("Error......" + err);
             res.json(getRaceSummaryFromSplits(splits));
         });
 };
 
-
 exports.details = function (req, res) {
     db.Split.find({
-        "raceNumber" : req.params.racenumber
+        "raceNumber": req.params.racenumber
     }).sort('lap').exec(function (err, splits) {
-            if (err) return console.log("Error......" +err);
-            res.json(combineRaceStats(splits));
-        });
+        if (err) return console.log("Error......" + err);
+        res.json(combineRaceStats(splits));
+    });
 };
 
+
 const combineRaceStats = (splits) => {
-    var orderedStats = {
+    let orderedStats = {
         maxLaps: 0,
         drivers: []
     };
-    for(var i = 0; i < splits.length; i++){
+    for (let i = 0; i < splits.length; i++) {
         let driverName = splits[i].driverName;
-        if(arrayObjectIndexOf(orderedStats.drivers, driverName, "name") != -1) {
+        if (arrayObjectIndexOf(orderedStats.drivers, driverName, "name") != -1) {
             //Adding lap entry
             orderedStats.drivers[arrayObjectIndexOf(orderedStats.drivers, driverName, "name")].laps.push({
                 lapNum: splits[i].lap,
                 time: splits[i].time
-            });             
-            
+            });
+
             //Updating max lap
-            if(orderedStats.maxLaps < splits[i].lap){            
+            if (orderedStats.maxLaps < splits[i].lap) {
                 orderedStats.maxLaps = splits[i].lap;
             }
-
         } else {
-            orderedStats.drivers.push({ 
+            orderedStats.drivers.push({
                 name: driverName,
                 laps: [{
                     lapNum: splits[i].lap,
@@ -55,11 +55,40 @@ const combineRaceStats = (splits) => {
 
 
 function arrayObjectIndexOf(myArray, searchTerm, property) {
-    for(var i = 0, len = myArray.length; i < len; i++) {
+    for (let i = 0, len = myArray.length; i < len; i++) {
         if (myArray[i][property] === searchTerm) return i;
     }
     return -1;
 }
+
+exports.add = function (req, res) {
+    let driverResults = req.body;
+    const race = new db.Race({_id: driverResults[0].raceNumber, date: new Date()});
+    race.save(function (err) {
+        if (err) res.status(400).json({error: err});
+
+        let promises = driverResults.map((driverResult) => {
+            if (err) res.status(400).json({error: err});
+
+            return driverResult.splits.map((split) => {
+                const splitObj = new db.Split({
+                    raceNumber: driverResult.raceNumber,
+                    time: split.time,
+                    lap: split.lap,
+                    driverName: driverResult.driverName
+                });
+
+                return splitObj.save((err) => {
+                    if (err) res.status(400).json({error: err});
+                });
+            });
+        });
+
+        Q.all(promises).then((d) => {
+            res.status(200).json({status: 'success'});
+        });
+    });
+};
 
 
 const getUniqueRaceIdsFromSplits = (splits) => {

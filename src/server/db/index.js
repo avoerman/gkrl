@@ -3,7 +3,9 @@ var path = require('path'),
       models = require('../models/races.model.js');
 
 //Connect to mLab database
+//need to switch these to env variables
 mongoose.connect('mongodb://admin:admin@ds135669.mlab.com:35669/gkrl');
+//mongoose.connect('mongodb://localhost:27017/test');
 
 
 var db = mongoose.connection;
