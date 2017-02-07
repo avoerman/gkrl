@@ -15,7 +15,11 @@ export class RacesService {
         return this.http.get('/api/races').map(res => res.json());
     }
 
-    addRaceFromRawData(race) : Observable<any> {
+    getRaceDetails(raceNumber) {
+        return this.http.get('/api/race/' + raceNumber).map(res => res.json());
+    }
+
+    addRaceFromRawData(race): Observable<any> {
         let raceData = RacesService.getSplitsFromDataImport(race.rawRaceData, race.raceNumber);
         return this.authHttp.post('/api/races', JSON.stringify(raceData), this.options);
     }

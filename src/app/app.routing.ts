@@ -4,6 +4,7 @@ import {AuthGuard} from './services/auth-guard.service';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {RacesComponent} from './races/races.component';
 import {AddRaceComponent} from './add-race/add-race.component';
+import {RacedetailsComponent} from './racedetails/racedetails.component';
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,9 @@ const appRoutes: Routes = [
     }, {
         path: 'races',
         component: RacesComponent
+    }, {
+        path: 'race-details/:raceNumber',
+        component: RacedetailsComponent
     }, {
         path: 'races/add',
         component: AddRaceComponent,

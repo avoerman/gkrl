@@ -1,5 +1,6 @@
 const db = require('../../db'),
-    Q = require('q');
+    Q = require('q'),
+    request = require('request');
 
 exports.get = function (req, res) {
     db.Split.find()
@@ -9,6 +10,56 @@ exports.get = function (req, res) {
             res.json(getRaceSummaryFromSplits(splits));
         });
 };
+
+exports.details = function (req, res) {
+    db.Split.find({
+        "raceNumber": req.params.racenumber
+    }).sort('lap').exec(function (err, splits) {
+        if (err) return console.log("Error......" + err);
+        res.json(combineRaceStats(splits));
+    });
+};
+
+
+const combineRaceStats = (splits) => {
+    let orderedStats = {
+        maxLaps: 0,
+        drivers: []
+    };
+    for (let i = 0; i < splits.length; i++) {
+        let driverName = splits[i].driverName;
+        if (arrayObjectIndexOf(orderedStats.drivers, driverName, "name") != -1) {
+            //Adding lap entry
+            orderedStats.drivers[arrayObjectIndexOf(orderedStats.drivers, driverName, "name")].laps.push({
+                lapNum: splits[i].lap,
+                time: splits[i].time
+            });
+
+            //Updating max lap
+            if (orderedStats.maxLaps < splits[i].lap) {
+                orderedStats.maxLaps = splits[i].lap;
+            }
+        } else {
+            orderedStats.drivers.push({
+                name: driverName,
+                laps: [{
+                    lapNum: splits[i].lap,
+                    time: splits[i].time
+                }]
+            });
+        }
+    }
+
+    return orderedStats;
+};
+
+
+function arrayObjectIndexOf(myArray, searchTerm, property) {
+    for (let i = 0, len = myArray.length; i < len; i++) {
+        if (myArray[i][property] === searchTerm) return i;
+    }
+    return -1;
+}
 
 exports.add = function (req, res) {
     let driverResults = req.body;
@@ -41,7 +92,6 @@ exports.add = function (req, res) {
 
 
 const getUniqueRaceIdsFromSplits = (splits) => {
-    debugger;
     return splits.map(item => item.raceNumber._id)
         .filter((value, index, self) => self.indexOf(value) === index);
 };
