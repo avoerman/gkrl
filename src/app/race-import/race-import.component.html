@@ -1,0 +1,14 @@
+<form #form="ngForm" [formGroup]="addRaceDataForm" (ngSubmit)="addRaceData()">
+
+    <label for="raceNumber">Race Number:</label>
+    <div class="input-group race-number-container">
+        <input type="number" formControlName="raceNumber" id="raceNumber" class="form-control"/>
+    </div>
+    <label for="rawRaceData">Tab Separated Race Data:</label>
+    <div class="input-group">
+        <textarea formControlName="rawRaceData" class="form-control" id="rawRaceData" rows="10"></textarea>
+    </div>
+    <br/>
+    <button class="btn btn-sm btn-primary" type="submit" [disabled]="!addRaceDataForm.valid">Save</button>
+
+</form>

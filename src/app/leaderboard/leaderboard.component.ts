@@ -10,8 +10,7 @@ export class LeaderboardComponent implements OnInit {
 
   leaderboardSummary: any = [];
 
-  constructor(private leaderboardService: LeaderboardService) {
-  }
+  constructor(private leaderboardService: LeaderboardService) {}
 
   ngOnInit() {
     this.getLeaderboardSummary();

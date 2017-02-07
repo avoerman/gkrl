@@ -1,41 +1,45 @@
 <div class="card" *ngIf="isLoading">
-  <h4 class="card-header">Loading...</h4>
-  <div class="card-block text-xs-center">
-    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
-  </div>
+    <h4 class="card-header">Loading...</h4>
+    <div class="card-block text-xs-center">
+        <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+    </div>
 </div>
 
 <div class="card races-card">
-  <h4 class="card-header">RACES</h4>
-  <div class="card-block">
-    <table class="races-table col-lg-12 generic-data-table">
-      <thead>
-      <tr>
-        <th>R#</th>
-        <th>Date</th>
-        <th>Gold</th>
-        <th>Silver</th>
-        <th>Bronze</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let race of races">
-        <td>{{race.raceNumber}}</td>
-        <td>{{race.date | date: 'MM/dd/yyyy'}}</td>
-        <td>
-          <div class="medal-time">{{race.goldTime}}</div>
-          <div class="medal-name">{{race.goldName}}</div>
-        </td>
-        <td>
-          <div class="medal-time">{{race.silverTime}}</div>
-          <div class="medal-name">{{race.silverName}}</div>
-        </td>
-        <td>
-          <div class="medal-time">{{race.bronzeTime}}</div>
-          <div class="medal-name">{{race.bronzeName}}</div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <h4 class="card-header">RACES</h4>
+    <div class="card-block">
+        <table class="races-table col-lg-12 generic-data-table">
+            <thead>
+            <tr>
+                <th>R#</th>
+                <th>Date</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let race of races">
+                <td>{{race.raceNumber}}</td>
+                <td>{{race.date | date: 'MM/dd/yyyy'}}</td>
+                <td>
+                    <div class="medal-time">{{race.goldTime}}</div>
+                    <div class="medal-name">{{race.goldName}}</div>
+                </td>
+                <td>
+                    <div class="medal-time">{{race.silverTime}}</div>
+                    <div class="medal-name">{{race.silverName}}</div>
+                </td>
+                <td>
+                    <div class="medal-time">{{race.bronzeTime}}</div>
+                    <div class="medal-name">{{race.bronzeName}}</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div *ngIf="authService.loggedIn()" class="actions">
+            <button routerLink="/races/add" routerLinkActive="active" class="btn btn-primary">Add Race</button>
+        </div>
+
+    </div>
 </div>

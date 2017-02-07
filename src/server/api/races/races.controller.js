@@ -1,16 +1,43 @@
-var db = require('../../db');
+const db = require('../../db'),
+    Q = require('q');
 
-
-exports.index = function (req, res) {
+exports.get = function (req, res) {
     db.Split.find()
         .populate('raceNumber')
         .exec(function (err, splits) {
-            if (err) return console.log("Error......" +err);
+            if (err) return console.log("Error......" + err);
             res.json(getRaceSummaryFromSplits(splits));
         });
 };
 
+exports.add = function (req, res) {
+    let driverResults = req.body;
+    const race = new db.Race({_id: driverResults[0].raceNumber, date: new Date()});
+    race.save(function (err) {
+        if (err) res.status(400).json({error: err});
 
+        let promises = driverResults.map((driverResult) => {
+            if (err) res.status(400).json({error: err});
+
+            return driverResult.splits.map((split) => {
+                const splitObj = new db.Split({
+                    raceNumber: driverResult.raceNumber,
+                    time: split.time,
+                    lap: split.lap,
+                    driverName: driverResult.driverName
+                });
+
+                return splitObj.save((err) => {
+                    if (err) res.status(400).json({error: err});
+                });
+            });
+        });
+
+        Q.all(promises).then((d) => {
+            res.status(200).json({status: 'success'});
+        });
+    });
+};
 
 
 const getUniqueRaceIdsFromSplits = (splits) => {

@@ -1,6 +1,14 @@
 <nav class="navigation">
-  <div class="navigation-links">
-    <a routerLink="/" class="navigation-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Leaderboard</a> |
-    <a routerLink="/races" class="navigation-link" routerLinkActive="active">Races</a>
-  </div>
+    <div class="navigation-links row">
+        <div class="col-lg-9">
+            <a routerLink="/"
+               class="navigation-link"
+               routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Leaderboard</a> |
+            <a routerLink="/races" class="navigation-link" routerLinkActive="active">Races</a>
+        </div>
+        <div class="col-lg-3" style="text-align: right;">
+            <a class="navigation-link" (click)=authService.login() *ngIf="!authService.loggedIn()">Log In</a>
+            <a class="navigation-link" (click)=authService.logout() *ngIf="authService.loggedIn()">Log Out</a>
+        </div>
+    </div>
 </nav>
