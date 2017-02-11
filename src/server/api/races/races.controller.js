@@ -1,6 +1,5 @@
 const db = require('../../db'),
-    Q = require('q'),
-    request = require('request');
+    Q = require('q');
 
 exports.get = function (req, res) {
     db.Split.find()
