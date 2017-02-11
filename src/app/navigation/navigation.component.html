@@ -1,14 +1,25 @@
-<nav class="navigation">
-    <div class="navigation-links row">
-        <div class="col-lg-9">
-            <a routerLink="/"
-               class="navigation-link"
-               routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Leaderboard</a> |
-            <a routerLink="/races" class="navigation-link" routerLinkActive="active">Races</a>
-        </div>
-        <div class="col-lg-3" style="text-align: right;">
-            <a class="navigation-link" (click)=authService.login() *ngIf="!authService.loggedIn()">Log In</a>
-            <a class="navigation-link" (click)=authService.logout() *ngIf="authService.loggedIn()">Log Out</a>
-        </div>
-    </div>
-</nav>
+<div class="navigation-bar">
+    <md-toolbar color="primary">
+        <span>GKRL</span>
+        <span class="spacer"></span>
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+            <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #menu="mdMenu">
+            <button md-menu-item (click)=authService.login() *ngIf="!authService.loggedIn()">
+                <md-icon>fingerprint</md-icon>
+                <span>Login</span>
+            </button>
+            <button md-menu-item (click)=authService.logout() *ngIf="authService.loggedIn()">
+                <md-icon>fingerprint</md-icon>
+                <span>Log Out</span>
+            </button>
+        </md-menu>
+    </md-toolbar>
+    <md-toolbar>
+        <nav md-tab-nav-bar>
+            <a md-tab-link routerLink="/leaderboard" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">Leaderboard</a>
+            <a md-tab-link routerLink="/races" routerLinkActive #rlab="routerLinkActive" [active]="rlab.isActive">Races</a>
+        </nav>
+    </md-toolbar>
+</div>

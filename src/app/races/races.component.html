@@ -1,47 +1,31 @@
-<div class="card" *ngIf="isLoading">
-    <h4 class="card-header">Loading...</h4>
-    <div class="card-block text-xs-center">
-        <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+<md-card>
+    <table td-data-table class="races-table">
+        <th td-data-table-column>R#</th>
+        <th td-data-table-column>Date</th>
+        <th td-data-table-column>Gold</th>
+        <th td-data-table-column>Silver</th>
+        <th td-data-table-column>Bronze</th>
+        <tr td-data-table-row *ngFor="let race of races" [routerLink]="['/race-details', race.raceNumber]"
+            class="races-table-row">
+            <td td-data-table-cell>{{race.raceNumber}}</td>
+            <td td-data-table-cell>{{race.date | date: 'MM/dd/yyyy'}}</td>
+            <td td-data-table-cell>
+                <div class="medal-time">{{race.goldTime}}</div>
+                <div class="medal-name">{{race.goldName}}</div>
+            </td>
+            <td td-data-table-cell>
+                <div class="medal-time">{{race.silverTime}}</div>
+                <div class="medal-name">{{race.silverName}}</div>
+            </td>
+            <td td-data-table-cell>
+                <div class="medal-time">{{race.bronzeTime}}</div>
+                <div class="medal-name">{{race.bronzeName}}</div>
+            </td>
+        </tr>
+    </table>
+    <div *ngIf="authService.loggedIn()">
+        <button md-fab routerLink="/races/add" color="accent" class="floating-add">
+            <md-icon>add</md-icon>
+        </button>
     </div>
-</div>
-
-<div class="card races-card">
-    <h4 class="card-header">RACES</h4>
-    <div class="card-block">
-        <table class="races-table col-lg-12 generic-data-table">
-            <thead>
-            <tr>
-                <th>R#</th>
-                <th>Date</th>
-                <th>Gold</th>
-                <th>Silver</th>
-                <th>Bronze</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let race of races">
-                <td>{{race.raceNumber}}</td>
-                <td>{{race.date | date: 'MM/dd/yyyy'}}</td>
-                <td>
-                    <div class="medal-time">{{race.goldTime}}</div>
-                    <div class="medal-name">{{race.goldName}}</div>
-                </td>
-                <td>
-                    <div class="medal-time">{{race.silverTime}}</div>
-                    <div class="medal-name">{{race.silverName}}</div>
-                </td>
-                <td>
-                    <div class="medal-time">{{race.bronzeTime}}</div>
-                    <div class="medal-name">{{race.bronzeName}}</div>
-                </td>
-                <td><a [routerLink]="['/race-details', race.raceNumber]">View</a></td>
-            </tr>
-            </tbody>
-        </table>
-        <div *ngIf="authService.loggedIn()" class="actions">
-            <button routerLink="/races/add" routerLinkActive="active" class="btn btn-primary">Add Race</button>
-        </div>
-
-    </div>
-</div>
+</md-card>

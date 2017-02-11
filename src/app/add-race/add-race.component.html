@@ -1,6 +1,12 @@
-<div class="card races-card">
-    <h4 class="card-header">Add New Race</h4>
-    <div class="card-block">
+<md-card>
+    <md-card-content>
+        <div>
+            <button md-button color="accent" [routerLink]="['/races']">
+                <md-icon>navigate_before</md-icon>
+                Back to Races
+            </button>
+        </div>
+        <h3 class="md-title">Add New Race</h3>
         <app-race-import></app-race-import>
-    </div>
-</div>
+    </md-card-content>
+</md-card>

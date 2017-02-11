@@ -5,7 +5,7 @@ import {AuthService} from '../services/auth-service.service';
 @Component({
     selector: 'app-races',
     templateUrl: './races.component.html',
-    styleUrls: ['./races.component.css'],
+    styleUrls: ['races.component.scss'],
     providers: [AuthService]
 })
 export class RacesComponent implements OnInit {

@@ -1,0 +1,11 @@
+body {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background: url(./assets/checkers.png) repeat;
+}
+
+.spacer {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}

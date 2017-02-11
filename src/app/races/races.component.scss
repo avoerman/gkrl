@@ -1,0 +1,16 @@
+.races-table-row:hover {
+    background-color: #eee;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.floating-add {
+    right: 14px;
+    bottom: 14px;
+    position: absolute;
+    z-index: 2;
+}
+
+.races-table {
+    margin-bottom: 24px;
+}

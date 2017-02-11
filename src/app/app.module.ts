@@ -19,7 +19,7 @@ import {AuthService} from "./services/auth-service.service";
 import {RaceImportComponent} from './race-import/race-import.component';
 import {AddRaceComponent} from './add-race/add-race.component';
 import {RacedetailsComponent} from './racedetails/racedetails.component';
-
+import { CovalentCoreModule } from '@covalent/core';
 
 @NgModule({
     declarations: [
@@ -33,6 +33,7 @@ import {RacedetailsComponent} from './racedetails/racedetails.component';
         RacedetailsComponent
     ],
     imports: [
+        CovalentCoreModule.forRoot(),
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
