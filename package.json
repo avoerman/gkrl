@@ -6,7 +6,7 @@
   "description": "Angular 2 full stack project.",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve --proxy-config proxy.conf.json --open",
+    "start": "node src/server/app.js",
     "prod": "ng serve --proxy-config proxy.conf.json --prod --open",
     "be": "nodemon src/server/app.js",
     "ng": "ng",
