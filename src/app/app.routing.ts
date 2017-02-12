@@ -3,8 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './services/auth-guard.service';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {RacesComponent} from './races/races.component';
-import {AddRaceComponent} from './add-race/add-race.component';
-import {RacedetailsComponent} from './racedetails/racedetails.component';
+import {AddRaceComponent} from './races/add-race/add-race.component';
+import {RacedetailsComponent} from './races/racedetails/racedetails.component';
 
 const appRoutes: Routes = [
     {

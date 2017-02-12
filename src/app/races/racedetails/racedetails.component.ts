@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {RacesService} from "../services/races.service";
-
+import { RacesService } from '../../services/races.service';
 
 @Component({
   selector: 'app-racedetails',
-  templateUrl: './racedetails.component.html',
-  styleUrls: ['./racedetails.component.css']
+  templateUrl: 'racedetails.component.html',
+  styleUrls: ['racedetails.component.css']
 })
 export class RacedetailsComponent implements OnInit {
 
