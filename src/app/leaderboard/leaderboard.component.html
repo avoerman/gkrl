@@ -1,19 +1,21 @@
 <md-card>
-    <md-card-content>
-        <table td-data-table>
-            <th td-data-table-column>Driver</th>
-            <th td-data-table-column>Top Time</th>
-            <th td-data-table-column>Top Time Rank</th>
-            <th td-data-table-column>Best Five Rank</th>
-            <th td-data-table-column>Best Three Rank</th>
+    <md-card-content class="leaderboard-card">
+        <div *tdLoading="'load'; mode:'indeterminate'; type:'circle'; strategy:'replace'; color:'accent'">
+            <table td-data-table>
+                <th td-data-table-column>Driver</th>
+                <th td-data-table-column>Top Time</th>
+                <th td-data-table-column>Top Time Rank</th>
+                <th td-data-table-column>Best Five Rank</th>
+                <th td-data-table-column>Best Three Rank</th>
 
-            <tr td-data-table-row *ngFor="let rec of leaderboardSummary">
-                <td td-data-table-cell>{{rec.driver}}</td>
-                <td td-data-table-cell>{{rec.bestTime}}</td>
-                <td td-data-table-cell>{{rec.bestTimeRank}}</td>
-                <td td-data-table-cell>{{rec.fastFiveRank}}</td>
-                <td td-data-table-cell>{{rec.fastThreeRank}}</td>
-            </tr>
-        </table>
+                <tr td-data-table-row *ngFor="let rec of leaderboardSummary">
+                    <td td-data-table-cell>{{rec.driver}}</td>
+                    <td td-data-table-cell>{{rec.bestTime}}</td>
+                    <td td-data-table-cell>{{rec.bestTimeRank}}</td>
+                    <td td-data-table-cell>{{rec.fastFiveRank}}</td>
+                    <td td-data-table-cell>{{rec.fastThreeRank}}</td>
+                </tr>
+            </table>
+        </div>
     </md-card-content>
 </md-card>
