@@ -2,3 +2,7 @@
     min-height: 400px;
     overflow-x: auto;
 }
+
+.load {
+    min-height: 430px;
+}
