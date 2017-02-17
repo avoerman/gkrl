@@ -18,7 +18,7 @@ const appRoutes: Routes = [
         path: 'races',
         component: RacesComponent
     }, {
-        path: 'race-details/:raceNumber',
+        path: 'races/:raceNumber',
         component: RacedetailsComponent
     }, {
         path: 'races/add',

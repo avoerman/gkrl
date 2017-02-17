@@ -7,7 +7,7 @@
                 <th td-data-table-column>Gold</th>
                 <th td-data-table-column>Silver</th>
                 <th td-data-table-column>Bronze</th>
-                <tr td-data-table-row *ngFor="let race of races" [routerLink]="['/race-details', race.raceNumber]"
+                <tr td-data-table-row *ngFor="let race of races" [routerLink]="['/races', race.raceNumber]"
                     class="races-table-row">
                     <td td-data-table-cell>{{race.raceNumber}}</td>
                     <td td-data-table-cell>{{race.date | date: 'MM/dd/yyyy'}}</td>
