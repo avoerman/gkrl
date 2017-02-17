@@ -116,9 +116,7 @@ const getSplitsSansNames = (sortedSplits, names) => {
 const getRaceSummaryFromSplits = (splits) => {
     const uniqueRaces = getUniqueRaceIdsFromSplits(splits);
 
-    let raceSummaryObj = [];
-    for (let raceId of uniqueRaces) {
-
+    const raceSummaryObj = uniqueRaces.map((raceId) => {
         //This could probably be done in one function, if I was smarter.
         const thisRaceSplitsSorted = getThisRaceSplitsSorted(splits, raceId);
 
@@ -128,7 +126,7 @@ const getRaceSummaryFromSplits = (splits) => {
         const silverSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName]);
         const bronzeSplits = getSplitsSansNames(thisRaceSplitsSorted, [goldName, silverSplits.name]);
 
-        const summaryObj = {
+        return {
             raceNumber: raceId,
             date: thisRaceSplitsSorted[0].raceNumber.date,// this should be safe,
             goldTime: goldTime,
@@ -139,7 +137,7 @@ const getRaceSummaryFromSplits = (splits) => {
             bronzeName: bronzeSplits.name
         };
 
-        raceSummaryObj.push(summaryObj);
-    }
+    });
+
     return raceSummaryObj;
 };
