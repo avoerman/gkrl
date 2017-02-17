@@ -25,7 +25,7 @@
                     </td>
                 </tr>
             </table>
-            <div *ngIf="authService.loggedIn()">
+            <div *ngIf="authService.loggedIn() && authService.isAdmin()">
                 <button md-fab routerLink="/races/add" color="accent" class="floating-add">
                     <md-icon>add</md-icon>
                 </button>

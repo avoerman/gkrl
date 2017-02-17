@@ -1,11 +1,12 @@
-import {Injectable} from '@angular/core';
-import {tokenNotExpired} from 'angular2-jwt';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { tokenNotExpired } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
-declare var Auth0Lock: any;
+declare let Auth0Lock: any;
 
 const AUTH0_CLIENT_ID = 'x7DzOI5eHu3wqs0E8flK15Q7i6NYfWhV';
 const AUTH0_DOMAIN = 'kgrl.auth0.com';
+
 
 @Injectable()
 export class AuthService {
@@ -47,4 +48,13 @@ export class AuthService {
     loggedIn() {
         return tokenNotExpired();
     }
+
+    public isAdmin() {
+        try {
+            return JSON.parse(localStorage.getItem('profile'))['roles'].some((el)=> { return el==='admin'});
+        } catch (e) {
+            return false;
+        }
+    }
+
 }
