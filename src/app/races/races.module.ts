@@ -1,25 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RacedetailsComponent } from './racedetails/racedetails.component';
-import { AddRaceComponent } from './add-race/add-race.component';
-import { RaceImportComponent } from './race-import/race-import.component';
 import { RacesService } from '../services/races.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { routing } from '../app.routing';
 import { CovalentCoreModule } from '@covalent/core';
+import { RaceDetailsModule } from './racedetails/racedetails.module';
+import { AddRaceModule } from './add-race/add-race.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [
-        RaceImportComponent,
-        AddRaceComponent,
-        RacedetailsComponent
-    ],
+    declarations: [ ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         CovalentCoreModule,
-        routing
+        RaceDetailsModule,
+        AddRaceModule,
+        RouterModule
     ],
     providers: [
         RacesService

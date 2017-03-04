@@ -21,7 +21,7 @@ const appRoutes: Routes = [
         path: 'races/:raceNumber',
         component: RacedetailsComponent
     }, {
-        path: 'races/add',
+        path: 'addrace',
         component: AddRaceComponent,
         canActivate: [AuthGuard]
     }
