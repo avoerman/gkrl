@@ -8,7 +8,7 @@
                 <th td-data-table-column>Best Five Rank</th>
                 <th td-data-table-column>Best Three Rank</th>
 
-                <tr td-data-table-row *ngFor="let rec of leaderboardSummary">
+                <tr td-data-table-row class="leader-row" *ngFor="let rec of leaderboardSummary" [routerLink]="['/drivers', rec.driver]">
                     <td td-data-table-cell>{{rec.driver}}</td>
                     <td td-data-table-cell>{{rec.bestTime}}</td>
                     <td td-data-table-cell>{{rec.bestTimeRank}}</td>

@@ -6,3 +6,9 @@
 .load {
     min-height: 430px;
 }
+
+.leader-row:hover {
+    background-color: #eee;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}

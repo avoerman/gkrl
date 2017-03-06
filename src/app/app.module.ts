@@ -18,6 +18,7 @@ import { AuthService } from "./services/auth-service.service";
 import { CovalentCoreModule } from '@covalent/core';
 import { RacesModule } from './races/races.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { DriverDetailComponent } from './driver-detail/driver-detail.component';
 
 @NgModule({
     declarations: [

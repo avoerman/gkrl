@@ -4,8 +4,8 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
     races = require('./api/races'),
-    leaderboard = require('./api/leaderboard');
-
+    leaderboard = require('./api/leaderboard'),
+    drivers = require('./api/drivers');
 
 const app = express();
 app.set('port', (process.env.PORT || 3000));
@@ -17,6 +17,7 @@ app.use(cors());
 app.use('/', express.static(__dirname + '/../../dist'));
 app.use('/api', races);
 app.use('/api', leaderboard);
+app.use('/api', drivers);
 
 app.use(morgan('dev'));
 

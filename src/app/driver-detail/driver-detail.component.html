@@ -1,0 +1,26 @@
+<md-card>
+    <md-card-content class="driver-card">
+        <div class="back-button">
+            <button md-button color="accent" [routerLink]="['/leaderboard']">
+                <md-icon>navigate_before</md-icon>
+                Back to Leaderboard
+            </button>
+        </div>
+
+        <div *tdLoading="'load'; mode:'indeterminate'; type:'circle'; strategy:'replace'; color:'accent'" class="load">
+            <md-card class="img-container" *ngIf="driverDetails">
+                <md-card-title>{{driverDetails.driverName}}</md-card-title>
+                <md-card-content class="inner-card">
+                    <div class="race-info-box">
+                        <label class="info-label">Total Races</label>
+                        <div class="info-value">{{driverDetails.totalRaces}}</div>
+                    </div>
+                    <!--<div class="race-info-box">-->
+                        <!--<label class="info-label">First Place Finishes</label>-->
+                        <!--<div class="info-value">5</div>-->
+                    <!--</div>-->
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-card-content>
+</md-card>

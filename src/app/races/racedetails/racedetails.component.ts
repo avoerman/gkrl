@@ -24,7 +24,6 @@ export class RacedetailsComponent implements OnInit {
 
     getRaceStats(raceNumber) {
         this.racesService.getRaceDetails(raceNumber).subscribe(raceStats => {
-            console.log(raceStats);
             this.raceStats = raceStats;
         });
     }
